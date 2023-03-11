@@ -1,0 +1,19 @@
+syntax = "proto3";
+
+package calculator;
+option go_package = "./calculatorpb";
+
+// really basic calculator service to support add and subtract of two numbers only 
+service Calcularor {
+    rpc Add(Params) returns (Result);
+    rpc Sub(Params) returns (Result);
+}
+
+message Params {
+    int32 a = 1;
+    int32 b = 2;
+}
+
+message Result {
+    int32 result = 1;
+}
