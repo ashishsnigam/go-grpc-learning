@@ -18,124 +18,290 @@ import (
 // Requires gRPC-Go v1.32.0 or later.
 const _ = grpc.SupportPackageIsVersion7
 
-// CalcularorClient is the client API for Calcularor service.
+// CalculatorServiceClient is the client API for CalculatorService service.
 //
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
-type CalcularorClient interface {
-	Add(ctx context.Context, in *Params, opts ...grpc.CallOption) (*Result, error)
-	Sub(ctx context.Context, in *Params, opts ...grpc.CallOption) (*Result, error)
+type CalculatorServiceClient interface {
+	Add(ctx context.Context, in *AddRequest, opts ...grpc.CallOption) (*AddResponse, error)
+	Primes(ctx context.Context, in *PrimesRequest, opts ...grpc.CallOption) (CalculatorService_PrimesClient, error)
+	Avg(ctx context.Context, opts ...grpc.CallOption) (CalculatorService_AvgClient, error)
+	Max(ctx context.Context, opts ...grpc.CallOption) (CalculatorService_MaxClient, error)
 }
 
-type calcularorClient struct {
+type calculatorServiceClient struct {
 	cc grpc.ClientConnInterface
 }
 
-func NewCalcularorClient(cc grpc.ClientConnInterface) CalcularorClient {
-	return &calcularorClient{cc}
+func NewCalculatorServiceClient(cc grpc.ClientConnInterface) CalculatorServiceClient {
+	return &calculatorServiceClient{cc}
 }
 
-func (c *calcularorClient) Add(ctx context.Context, in *Params, opts ...grpc.CallOption) (*Result, error) {
-	out := new(Result)
-	err := c.cc.Invoke(ctx, "/calculator.Calcularor/Add", in, out, opts...)
+func (c *calculatorServiceClient) Add(ctx context.Context, in *AddRequest, opts ...grpc.CallOption) (*AddResponse, error) {
+	out := new(AddResponse)
+	err := c.cc.Invoke(ctx, "/calculator.CalculatorService/Add", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
 	return out, nil
 }
 
-func (c *calcularorClient) Sub(ctx context.Context, in *Params, opts ...grpc.CallOption) (*Result, error) {
-	out := new(Result)
-	err := c.cc.Invoke(ctx, "/calculator.Calcularor/Sub", in, out, opts...)
+func (c *calculatorServiceClient) Primes(ctx context.Context, in *PrimesRequest, opts ...grpc.CallOption) (CalculatorService_PrimesClient, error) {
+	stream, err := c.cc.NewStream(ctx, &CalculatorService_ServiceDesc.Streams[0], "/calculator.CalculatorService/Primes", opts...)
 	if err != nil {
 		return nil, err
 	}
-	return out, nil
+	x := &calculatorServicePrimesClient{stream}
+	if err := x.ClientStream.SendMsg(in); err != nil {
+		return nil, err
+	}
+	if err := x.ClientStream.CloseSend(); err != nil {
+		return nil, err
+	}
+	return x, nil
 }
 
-// CalcularorServer is the server API for Calcularor service.
-// All implementations must embed UnimplementedCalcularorServer
+type CalculatorService_PrimesClient interface {
+	Recv() (*PrimeResponse, error)
+	grpc.ClientStream
+}
+
+type calculatorServicePrimesClient struct {
+	grpc.ClientStream
+}
+
+func (x *calculatorServicePrimesClient) Recv() (*PrimeResponse, error) {
+	m := new(PrimeResponse)
+	if err := x.ClientStream.RecvMsg(m); err != nil {
+		return nil, err
+	}
+	return m, nil
+}
+
+func (c *calculatorServiceClient) Avg(ctx context.Context, opts ...grpc.CallOption) (CalculatorService_AvgClient, error) {
+	stream, err := c.cc.NewStream(ctx, &CalculatorService_ServiceDesc.Streams[1], "/calculator.CalculatorService/Avg", opts...)
+	if err != nil {
+		return nil, err
+	}
+	x := &calculatorServiceAvgClient{stream}
+	return x, nil
+}
+
+type CalculatorService_AvgClient interface {
+	Send(*AvgRequest) error
+	CloseAndRecv() (*AvgResponse, error)
+	grpc.ClientStream
+}
+
+type calculatorServiceAvgClient struct {
+	grpc.ClientStream
+}
+
+func (x *calculatorServiceAvgClient) Send(m *AvgRequest) error {
+	return x.ClientStream.SendMsg(m)
+}
+
+func (x *calculatorServiceAvgClient) CloseAndRecv() (*AvgResponse, error) {
+	if err := x.ClientStream.CloseSend(); err != nil {
+		return nil, err
+	}
+	m := new(AvgResponse)
+	if err := x.ClientStream.RecvMsg(m); err != nil {
+		return nil, err
+	}
+	return m, nil
+}
+
+func (c *calculatorServiceClient) Max(ctx context.Context, opts ...grpc.CallOption) (CalculatorService_MaxClient, error) {
+	stream, err := c.cc.NewStream(ctx, &CalculatorService_ServiceDesc.Streams[2], "/calculator.CalculatorService/Max", opts...)
+	if err != nil {
+		return nil, err
+	}
+	x := &calculatorServiceMaxClient{stream}
+	return x, nil
+}
+
+type CalculatorService_MaxClient interface {
+	Send(*MaxRequest) error
+	Recv() (*MaxResponse, error)
+	grpc.ClientStream
+}
+
+type calculatorServiceMaxClient struct {
+	grpc.ClientStream
+}
+
+func (x *calculatorServiceMaxClient) Send(m *MaxRequest) error {
+	return x.ClientStream.SendMsg(m)
+}
+
+func (x *calculatorServiceMaxClient) Recv() (*MaxResponse, error) {
+	m := new(MaxResponse)
+	if err := x.ClientStream.RecvMsg(m); err != nil {
+		return nil, err
+	}
+	return m, nil
+}
+
+// CalculatorServiceServer is the server API for CalculatorService service.
+// All implementations must embed UnimplementedCalculatorServiceServer
 // for forward compatibility
-type CalcularorServer interface {
-	Add(context.Context, *Params) (*Result, error)
-	Sub(context.Context, *Params) (*Result, error)
-	mustEmbedUnimplementedCalcularorServer()
+type CalculatorServiceServer interface {
+	Add(context.Context, *AddRequest) (*AddResponse, error)
+	Primes(*PrimesRequest, CalculatorService_PrimesServer) error
+	Avg(CalculatorService_AvgServer) error
+	Max(CalculatorService_MaxServer) error
+	mustEmbedUnimplementedCalculatorServiceServer()
 }
 
-// UnimplementedCalcularorServer must be embedded to have forward compatible implementations.
-type UnimplementedCalcularorServer struct {
+// UnimplementedCalculatorServiceServer must be embedded to have forward compatible implementations.
+type UnimplementedCalculatorServiceServer struct {
 }
 
-func (UnimplementedCalcularorServer) Add(context.Context, *Params) (*Result, error) {
+func (UnimplementedCalculatorServiceServer) Add(context.Context, *AddRequest) (*AddResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method Add not implemented")
 }
-func (UnimplementedCalcularorServer) Sub(context.Context, *Params) (*Result, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method Sub not implemented")
+func (UnimplementedCalculatorServiceServer) Primes(*PrimesRequest, CalculatorService_PrimesServer) error {
+	return status.Errorf(codes.Unimplemented, "method Primes not implemented")
 }
-func (UnimplementedCalcularorServer) mustEmbedUnimplementedCalcularorServer() {}
+func (UnimplementedCalculatorServiceServer) Avg(CalculatorService_AvgServer) error {
+	return status.Errorf(codes.Unimplemented, "method Avg not implemented")
+}
+func (UnimplementedCalculatorServiceServer) Max(CalculatorService_MaxServer) error {
+	return status.Errorf(codes.Unimplemented, "method Max not implemented")
+}
+func (UnimplementedCalculatorServiceServer) mustEmbedUnimplementedCalculatorServiceServer() {}
 
-// UnsafeCalcularorServer may be embedded to opt out of forward compatibility for this service.
-// Use of this interface is not recommended, as added methods to CalcularorServer will
+// UnsafeCalculatorServiceServer may be embedded to opt out of forward compatibility for this service.
+// Use of this interface is not recommended, as added methods to CalculatorServiceServer will
 // result in compilation errors.
-type UnsafeCalcularorServer interface {
-	mustEmbedUnimplementedCalcularorServer()
+type UnsafeCalculatorServiceServer interface {
+	mustEmbedUnimplementedCalculatorServiceServer()
 }
 
-func RegisterCalcularorServer(s grpc.ServiceRegistrar, srv CalcularorServer) {
-	s.RegisterService(&Calcularor_ServiceDesc, srv)
+func RegisterCalculatorServiceServer(s grpc.ServiceRegistrar, srv CalculatorServiceServer) {
+	s.RegisterService(&CalculatorService_ServiceDesc, srv)
 }
 
-func _Calcularor_Add_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(Params)
+func _CalculatorService_Add_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(AddRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(CalcularorServer).Add(ctx, in)
+		return srv.(CalculatorServiceServer).Add(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/calculator.Calcularor/Add",
+		FullMethod: "/calculator.CalculatorService/Add",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(CalcularorServer).Add(ctx, req.(*Params))
+		return srv.(CalculatorServiceServer).Add(ctx, req.(*AddRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
 
-func _Calcularor_Sub_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(Params)
-	if err := dec(in); err != nil {
+func _CalculatorService_Primes_Handler(srv interface{}, stream grpc.ServerStream) error {
+	m := new(PrimesRequest)
+	if err := stream.RecvMsg(m); err != nil {
+		return err
+	}
+	return srv.(CalculatorServiceServer).Primes(m, &calculatorServicePrimesServer{stream})
+}
+
+type CalculatorService_PrimesServer interface {
+	Send(*PrimeResponse) error
+	grpc.ServerStream
+}
+
+type calculatorServicePrimesServer struct {
+	grpc.ServerStream
+}
+
+func (x *calculatorServicePrimesServer) Send(m *PrimeResponse) error {
+	return x.ServerStream.SendMsg(m)
+}
+
+func _CalculatorService_Avg_Handler(srv interface{}, stream grpc.ServerStream) error {
+	return srv.(CalculatorServiceServer).Avg(&calculatorServiceAvgServer{stream})
+}
+
+type CalculatorService_AvgServer interface {
+	SendAndClose(*AvgResponse) error
+	Recv() (*AvgRequest, error)
+	grpc.ServerStream
+}
+
+type calculatorServiceAvgServer struct {
+	grpc.ServerStream
+}
+
+func (x *calculatorServiceAvgServer) SendAndClose(m *AvgResponse) error {
+	return x.ServerStream.SendMsg(m)
+}
+
+func (x *calculatorServiceAvgServer) Recv() (*AvgRequest, error) {
+	m := new(AvgRequest)
+	if err := x.ServerStream.RecvMsg(m); err != nil {
 		return nil, err
 	}
-	if interceptor == nil {
-		return srv.(CalcularorServer).Sub(ctx, in)
-	}
-	info := &grpc.UnaryServerInfo{
-		Server:     srv,
-		FullMethod: "/calculator.Calcularor/Sub",
-	}
-	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(CalcularorServer).Sub(ctx, req.(*Params))
-	}
-	return interceptor(ctx, in, info, handler)
+	return m, nil
 }
 
-// Calcularor_ServiceDesc is the grpc.ServiceDesc for Calcularor service.
+func _CalculatorService_Max_Handler(srv interface{}, stream grpc.ServerStream) error {
+	return srv.(CalculatorServiceServer).Max(&calculatorServiceMaxServer{stream})
+}
+
+type CalculatorService_MaxServer interface {
+	Send(*MaxResponse) error
+	Recv() (*MaxRequest, error)
+	grpc.ServerStream
+}
+
+type calculatorServiceMaxServer struct {
+	grpc.ServerStream
+}
+
+func (x *calculatorServiceMaxServer) Send(m *MaxResponse) error {
+	return x.ServerStream.SendMsg(m)
+}
+
+func (x *calculatorServiceMaxServer) Recv() (*MaxRequest, error) {
+	m := new(MaxRequest)
+	if err := x.ServerStream.RecvMsg(m); err != nil {
+		return nil, err
+	}
+	return m, nil
+}
+
+// CalculatorService_ServiceDesc is the grpc.ServiceDesc for CalculatorService service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
-var Calcularor_ServiceDesc = grpc.ServiceDesc{
-	ServiceName: "calculator.Calcularor",
-	HandlerType: (*CalcularorServer)(nil),
+var CalculatorService_ServiceDesc = grpc.ServiceDesc{
+	ServiceName: "calculator.CalculatorService",
+	HandlerType: (*CalculatorServiceServer)(nil),
 	Methods: []grpc.MethodDesc{
 		{
 			MethodName: "Add",
-			Handler:    _Calcularor_Add_Handler,
-		},
-		{
-			MethodName: "Sub",
-			Handler:    _Calcularor_Sub_Handler,
+			Handler:    _CalculatorService_Add_Handler,
 		},
 	},
-	Streams:  []grpc.StreamDesc{},
+	Streams: []grpc.StreamDesc{
+		{
+			StreamName:    "Primes",
+			Handler:       _CalculatorService_Primes_Handler,
+			ServerStreams: true,
+		},
+		{
+			StreamName:    "Avg",
+			Handler:       _CalculatorService_Avg_Handler,
+			ClientStreams: true,
+		},
+		{
+			StreamName:    "Max",
+			Handler:       _CalculatorService_Max_Handler,
+			ServerStreams: true,
+			ClientStreams: true,
+		},
+	},
 	Metadata: "calculatorpb/calculator.proto",
 }

@@ -1,42 +1,25 @@
 package main
 
 import (
-	"context"
 	"fmt"
 	"log"
 	"net"
 
-	"github.com/ashishsnigam/calc/calculatorpb"
+	"calc/calculatorpb"
+
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/reflection"
 )
 
+// calcServer is required to have UnimplementedCalculatorServiceServer as per latest grpc changes for forward compatibility
+// it can be removed from command line while generating protobuf code but
 type calcServer struct {
-	calculatorpb.UnimplementedCalcularorServer
+	calculatorpb.UnimplementedCalculatorServiceServer
 }
 
-func (*calcServer) Add(ctx context.Context, req *calculatorpb.Params) (*calculatorpb.Result, error) {
-	fmt.Printf("Received sum request rpc: %v\n", req)
-	firstNumber := req.A
-	secondNumber := req.B
-
-	sum := firstNumber + secondNumber
-	res := &calculatorpb.Result{Result: sum}
-	return res, nil
-}
-
-func (*calcServer) Sub(ctx context.Context, req *calculatorpb.Params) (*calculatorpb.Result, error) {
-	fmt.Printf("Recieved sub rpc request : %v\n", req)
-	if req.A > req.B {
-		diff := req.A - req.B
-		return &calculatorpb.Result{Result: diff}, nil
-	}
-	return nil, fmt.Errorf("first number should be big")
-}
-
-// Add this calcServer in grpc calcServer
+// Add this calcServer in grpc server
 func main() {
-	fmt.Println("calculator calcServer")
+	fmt.Println("calculator service server code starts..")
 
 	lis, err := net.Listen("tcp", "localhost:7002")
 	if err != nil {
@@ -44,7 +27,7 @@ func main() {
 	}
 
 	s := grpc.NewServer()
-	calculatorpb.RegisterCalcularorServer(s, &calcServer{})
+	calculatorpb.RegisterCalculatorServiceServer(s, &calcServer{})
 
 	reflection.Register(s)
 

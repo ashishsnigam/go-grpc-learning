@@ -3,17 +3,43 @@ syntax = "proto3";
 package calculator;
 option go_package = "./calculatorpb";
 
-// really basic calculator service to support add and subtract of two numbers only 
-service Calcularor {
-    rpc Add(Params) returns (Result);
-    rpc Sub(Params) returns (Result);
+
+service CalculatorService {
+    rpc Add(AddRequest) returns (AddResponse);    // unary
+    rpc Primes(PrimesRequest) returns (stream PrimeResponse);  // server streaming
+    rpc Avg(stream AvgRequest) returns (AvgResponse); // client side streaming
+    rpc Max(stream MaxRequest) returns (stream MaxResponse); // BiDi streaming
 }
 
-message Params {
-    int32 a = 1;
-    int32 b = 2;
+message AddRequest {
+    int32 firstParam = 1;
+    int32 secondParam = 2;
 }
 
-message Result {
+message AddResponse {
+    int32 result = 1;
+}
+
+message PrimesRequest {
+    int64 number = 1;
+}
+
+message PrimeResponse {
+    int64 result = 1;
+}
+
+message AvgRequest {
+    int64 number = 1;
+}
+
+message AvgResponse {
+    int64 result = 1;
+}
+
+message MaxRequest {
+    int32 number = 1;
+}
+
+message MaxResponse {
     int32 result = 1;
 }

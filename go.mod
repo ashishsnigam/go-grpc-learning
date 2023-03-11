@@ -1,10 +1,10 @@
-module github.com/ashishsnigam/calc
+module calc
 
 go 1.19
 
 require (
 	google.golang.org/grpc v1.53.0
-	google.golang.org/protobuf v1.29.0
+	google.golang.org/protobuf v1.28.1
 )
 
 require (

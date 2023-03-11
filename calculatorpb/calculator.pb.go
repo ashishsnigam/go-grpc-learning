@@ -20,17 +20,17 @@ const (
 	_ = protoimpl.EnforceVersion(protoimpl.MaxVersion - 20)
 )
 
-type Params struct {
+type AddRequest struct {
 	state         protoimpl.MessageState
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	A int32 `protobuf:"varint,1,opt,name=a,proto3" json:"a,omitempty"`
-	B int32 `protobuf:"varint,2,opt,name=b,proto3" json:"b,omitempty"`
+	FirstParam  int32 `protobuf:"varint,1,opt,name=firstParam,proto3" json:"firstParam,omitempty"`
+	SecondParam int32 `protobuf:"varint,2,opt,name=secondParam,proto3" json:"secondParam,omitempty"`
 }
 
-func (x *Params) Reset() {
-	*x = Params{}
+func (x *AddRequest) Reset() {
+	*x = AddRequest{}
 	if protoimpl.UnsafeEnabled {
 		mi := &file_calculatorpb_calculator_proto_msgTypes[0]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
@@ -38,13 +38,13 @@ func (x *Params) Reset() {
 	}
 }
 
-func (x *Params) String() string {
+func (x *AddRequest) String() string {
 	return protoimpl.X.MessageStringOf(x)
 }
 
-func (*Params) ProtoMessage() {}
+func (*AddRequest) ProtoMessage() {}
 
-func (x *Params) ProtoReflect() protoreflect.Message {
+func (x *AddRequest) ProtoReflect() protoreflect.Message {
 	mi := &file_calculatorpb_calculator_proto_msgTypes[0]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
@@ -56,26 +56,26 @@ func (x *Params) ProtoReflect() protoreflect.Message {
 	return mi.MessageOf(x)
 }
 
-// Deprecated: Use Params.ProtoReflect.Descriptor instead.
-func (*Params) Descriptor() ([]byte, []int) {
+// Deprecated: Use AddRequest.ProtoReflect.Descriptor instead.
+func (*AddRequest) Descriptor() ([]byte, []int) {
 	return file_calculatorpb_calculator_proto_rawDescGZIP(), []int{0}
 }
 
-func (x *Params) GetA() int32 {
+func (x *AddRequest) GetFirstParam() int32 {
 	if x != nil {
-		return x.A
+		return x.FirstParam
 	}
 	return 0
 }
 
-func (x *Params) GetB() int32 {
+func (x *AddRequest) GetSecondParam() int32 {
 	if x != nil {
-		return x.B
+		return x.SecondParam
 	}
 	return 0
 }
 
-type Result struct {
+type AddResponse struct {
 	state         protoimpl.MessageState
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
@@ -83,8 +83,8 @@ type Result struct {
 	Result int32 `protobuf:"varint,1,opt,name=result,proto3" json:"result,omitempty"`
 }
 
-func (x *Result) Reset() {
-	*x = Result{}
+func (x *AddResponse) Reset() {
+	*x = AddResponse{}
 	if protoimpl.UnsafeEnabled {
 		mi := &file_calculatorpb_calculator_proto_msgTypes[1]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
@@ -92,13 +92,13 @@ func (x *Result) Reset() {
 	}
 }
 
-func (x *Result) String() string {
+func (x *AddResponse) String() string {
 	return protoimpl.X.MessageStringOf(x)
 }
 
-func (*Result) ProtoMessage() {}
+func (*AddResponse) ProtoMessage() {}
 
-func (x *Result) ProtoReflect() protoreflect.Message {
+func (x *AddResponse) ProtoReflect() protoreflect.Message {
 	mi := &file_calculatorpb_calculator_proto_msgTypes[1]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
@@ -110,12 +110,294 @@ func (x *Result) ProtoReflect() protoreflect.Message {
 	return mi.MessageOf(x)
 }
 
-// Deprecated: Use Result.ProtoReflect.Descriptor instead.
-func (*Result) Descriptor() ([]byte, []int) {
+// Deprecated: Use AddResponse.ProtoReflect.Descriptor instead.
+func (*AddResponse) Descriptor() ([]byte, []int) {
 	return file_calculatorpb_calculator_proto_rawDescGZIP(), []int{1}
 }
 
-func (x *Result) GetResult() int32 {
+func (x *AddResponse) GetResult() int32 {
+	if x != nil {
+		return x.Result
+	}
+	return 0
+}
+
+type PrimesRequest struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	Number int64 `protobuf:"varint,1,opt,name=number,proto3" json:"number,omitempty"`
+}
+
+func (x *PrimesRequest) Reset() {
+	*x = PrimesRequest{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_calculatorpb_calculator_proto_msgTypes[2]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *PrimesRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*PrimesRequest) ProtoMessage() {}
+
+func (x *PrimesRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_calculatorpb_calculator_proto_msgTypes[2]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use PrimesRequest.ProtoReflect.Descriptor instead.
+func (*PrimesRequest) Descriptor() ([]byte, []int) {
+	return file_calculatorpb_calculator_proto_rawDescGZIP(), []int{2}
+}
+
+func (x *PrimesRequest) GetNumber() int64 {
+	if x != nil {
+		return x.Number
+	}
+	return 0
+}
+
+type PrimeResponse struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	Result int64 `protobuf:"varint,1,opt,name=result,proto3" json:"result,omitempty"`
+}
+
+func (x *PrimeResponse) Reset() {
+	*x = PrimeResponse{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_calculatorpb_calculator_proto_msgTypes[3]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *PrimeResponse) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*PrimeResponse) ProtoMessage() {}
+
+func (x *PrimeResponse) ProtoReflect() protoreflect.Message {
+	mi := &file_calculatorpb_calculator_proto_msgTypes[3]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use PrimeResponse.ProtoReflect.Descriptor instead.
+func (*PrimeResponse) Descriptor() ([]byte, []int) {
+	return file_calculatorpb_calculator_proto_rawDescGZIP(), []int{3}
+}
+
+func (x *PrimeResponse) GetResult() int64 {
+	if x != nil {
+		return x.Result
+	}
+	return 0
+}
+
+type AvgRequest struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	Number int64 `protobuf:"varint,1,opt,name=number,proto3" json:"number,omitempty"`
+}
+
+func (x *AvgRequest) Reset() {
+	*x = AvgRequest{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_calculatorpb_calculator_proto_msgTypes[4]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *AvgRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*AvgRequest) ProtoMessage() {}
+
+func (x *AvgRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_calculatorpb_calculator_proto_msgTypes[4]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use AvgRequest.ProtoReflect.Descriptor instead.
+func (*AvgRequest) Descriptor() ([]byte, []int) {
+	return file_calculatorpb_calculator_proto_rawDescGZIP(), []int{4}
+}
+
+func (x *AvgRequest) GetNumber() int64 {
+	if x != nil {
+		return x.Number
+	}
+	return 0
+}
+
+type AvgResponse struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	Result int64 `protobuf:"varint,1,opt,name=result,proto3" json:"result,omitempty"`
+}
+
+func (x *AvgResponse) Reset() {
+	*x = AvgResponse{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_calculatorpb_calculator_proto_msgTypes[5]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *AvgResponse) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*AvgResponse) ProtoMessage() {}
+
+func (x *AvgResponse) ProtoReflect() protoreflect.Message {
+	mi := &file_calculatorpb_calculator_proto_msgTypes[5]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use AvgResponse.ProtoReflect.Descriptor instead.
+func (*AvgResponse) Descriptor() ([]byte, []int) {
+	return file_calculatorpb_calculator_proto_rawDescGZIP(), []int{5}
+}
+
+func (x *AvgResponse) GetResult() int64 {
+	if x != nil {
+		return x.Result
+	}
+	return 0
+}
+
+type MaxRequest struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	Number int32 `protobuf:"varint,1,opt,name=number,proto3" json:"number,omitempty"`
+}
+
+func (x *MaxRequest) Reset() {
+	*x = MaxRequest{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_calculatorpb_calculator_proto_msgTypes[6]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *MaxRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*MaxRequest) ProtoMessage() {}
+
+func (x *MaxRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_calculatorpb_calculator_proto_msgTypes[6]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use MaxRequest.ProtoReflect.Descriptor instead.
+func (*MaxRequest) Descriptor() ([]byte, []int) {
+	return file_calculatorpb_calculator_proto_rawDescGZIP(), []int{6}
+}
+
+func (x *MaxRequest) GetNumber() int32 {
+	if x != nil {
+		return x.Number
+	}
+	return 0
+}
+
+type MaxResponse struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	Result int32 `protobuf:"varint,1,opt,name=result,proto3" json:"result,omitempty"`
+}
+
+func (x *MaxResponse) Reset() {
+	*x = MaxResponse{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_calculatorpb_calculator_proto_msgTypes[7]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *MaxResponse) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*MaxResponse) ProtoMessage() {}
+
+func (x *MaxResponse) ProtoReflect() protoreflect.Message {
+	mi := &file_calculatorpb_calculator_proto_msgTypes[7]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use MaxResponse.ProtoReflect.Descriptor instead.
+func (*MaxResponse) Descriptor() ([]byte, []int) {
+	return file_calculatorpb_calculator_proto_rawDescGZIP(), []int{7}
+}
+
+func (x *MaxResponse) GetResult() int32 {
 	if x != nil {
 		return x.Result
 	}
@@ -127,20 +409,47 @@ var File_calculatorpb_calculator_proto protoreflect.FileDescriptor
 var file_calculatorpb_calculator_proto_rawDesc = []byte{
 	0x0a, 0x1d, 0x63, 0x61, 0x6c, 0x63, 0x75, 0x6c, 0x61, 0x74, 0x6f, 0x72, 0x70, 0x62, 0x2f, 0x63,
 	0x61, 0x6c, 0x63, 0x75, 0x6c, 0x61, 0x74, 0x6f, 0x72, 0x2e, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x12,
-	0x0a, 0x63, 0x61, 0x6c, 0x63, 0x75, 0x6c, 0x61, 0x74, 0x6f, 0x72, 0x22, 0x24, 0x0a, 0x06, 0x50,
-	0x61, 0x72, 0x61, 0x6d, 0x73, 0x12, 0x0c, 0x0a, 0x01, 0x61, 0x18, 0x01, 0x20, 0x01, 0x28, 0x05,
-	0x52, 0x01, 0x61, 0x12, 0x0c, 0x0a, 0x01, 0x62, 0x18, 0x02, 0x20, 0x01, 0x28, 0x05, 0x52, 0x01,
-	0x62, 0x22, 0x20, 0x0a, 0x06, 0x52, 0x65, 0x73, 0x75, 0x6c, 0x74, 0x12, 0x16, 0x0a, 0x06, 0x72,
-	0x65, 0x73, 0x75, 0x6c, 0x74, 0x18, 0x01, 0x20, 0x01, 0x28, 0x05, 0x52, 0x06, 0x72, 0x65, 0x73,
-	0x75, 0x6c, 0x74, 0x32, 0x6a, 0x0a, 0x0a, 0x43, 0x61, 0x6c, 0x63, 0x75, 0x6c, 0x61, 0x72, 0x6f,
-	0x72, 0x12, 0x2d, 0x0a, 0x03, 0x41, 0x64, 0x64, 0x12, 0x12, 0x2e, 0x63, 0x61, 0x6c, 0x63, 0x75,
-	0x6c, 0x61, 0x74, 0x6f, 0x72, 0x2e, 0x50, 0x61, 0x72, 0x61, 0x6d, 0x73, 0x1a, 0x12, 0x2e, 0x63,
-	0x61, 0x6c, 0x63, 0x75, 0x6c, 0x61, 0x74, 0x6f, 0x72, 0x2e, 0x52, 0x65, 0x73, 0x75, 0x6c, 0x74,
-	0x12, 0x2d, 0x0a, 0x03, 0x53, 0x75, 0x62, 0x12, 0x12, 0x2e, 0x63, 0x61, 0x6c, 0x63, 0x75, 0x6c,
-	0x61, 0x74, 0x6f, 0x72, 0x2e, 0x50, 0x61, 0x72, 0x61, 0x6d, 0x73, 0x1a, 0x12, 0x2e, 0x63, 0x61,
-	0x6c, 0x63, 0x75, 0x6c, 0x61, 0x74, 0x6f, 0x72, 0x2e, 0x52, 0x65, 0x73, 0x75, 0x6c, 0x74, 0x42,
-	0x10, 0x5a, 0x0e, 0x2e, 0x2f, 0x63, 0x61, 0x6c, 0x63, 0x75, 0x6c, 0x61, 0x74, 0x6f, 0x72, 0x70,
-	0x62, 0x62, 0x06, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x33,
+	0x0a, 0x63, 0x61, 0x6c, 0x63, 0x75, 0x6c, 0x61, 0x74, 0x6f, 0x72, 0x22, 0x4e, 0x0a, 0x0a, 0x41,
+	0x64, 0x64, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x12, 0x1e, 0x0a, 0x0a, 0x66, 0x69, 0x72,
+	0x73, 0x74, 0x50, 0x61, 0x72, 0x61, 0x6d, 0x18, 0x01, 0x20, 0x01, 0x28, 0x05, 0x52, 0x0a, 0x66,
+	0x69, 0x72, 0x73, 0x74, 0x50, 0x61, 0x72, 0x61, 0x6d, 0x12, 0x20, 0x0a, 0x0b, 0x73, 0x65, 0x63,
+	0x6f, 0x6e, 0x64, 0x50, 0x61, 0x72, 0x61, 0x6d, 0x18, 0x02, 0x20, 0x01, 0x28, 0x05, 0x52, 0x0b,
+	0x73, 0x65, 0x63, 0x6f, 0x6e, 0x64, 0x50, 0x61, 0x72, 0x61, 0x6d, 0x22, 0x25, 0x0a, 0x0b, 0x41,
+	0x64, 0x64, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x12, 0x16, 0x0a, 0x06, 0x72, 0x65,
+	0x73, 0x75, 0x6c, 0x74, 0x18, 0x01, 0x20, 0x01, 0x28, 0x05, 0x52, 0x06, 0x72, 0x65, 0x73, 0x75,
+	0x6c, 0x74, 0x22, 0x27, 0x0a, 0x0d, 0x50, 0x72, 0x69, 0x6d, 0x65, 0x73, 0x52, 0x65, 0x71, 0x75,
+	0x65, 0x73, 0x74, 0x12, 0x16, 0x0a, 0x06, 0x6e, 0x75, 0x6d, 0x62, 0x65, 0x72, 0x18, 0x01, 0x20,
+	0x01, 0x28, 0x03, 0x52, 0x06, 0x6e, 0x75, 0x6d, 0x62, 0x65, 0x72, 0x22, 0x27, 0x0a, 0x0d, 0x50,
+	0x72, 0x69, 0x6d, 0x65, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x12, 0x16, 0x0a, 0x06,
+	0x72, 0x65, 0x73, 0x75, 0x6c, 0x74, 0x18, 0x01, 0x20, 0x01, 0x28, 0x03, 0x52, 0x06, 0x72, 0x65,
+	0x73, 0x75, 0x6c, 0x74, 0x22, 0x24, 0x0a, 0x0a, 0x41, 0x76, 0x67, 0x52, 0x65, 0x71, 0x75, 0x65,
+	0x73, 0x74, 0x12, 0x16, 0x0a, 0x06, 0x6e, 0x75, 0x6d, 0x62, 0x65, 0x72, 0x18, 0x01, 0x20, 0x01,
+	0x28, 0x03, 0x52, 0x06, 0x6e, 0x75, 0x6d, 0x62, 0x65, 0x72, 0x22, 0x25, 0x0a, 0x0b, 0x41, 0x76,
+	0x67, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x12, 0x16, 0x0a, 0x06, 0x72, 0x65, 0x73,
+	0x75, 0x6c, 0x74, 0x18, 0x01, 0x20, 0x01, 0x28, 0x03, 0x52, 0x06, 0x72, 0x65, 0x73, 0x75, 0x6c,
+	0x74, 0x22, 0x24, 0x0a, 0x0a, 0x4d, 0x61, 0x78, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x12,
+	0x16, 0x0a, 0x06, 0x6e, 0x75, 0x6d, 0x62, 0x65, 0x72, 0x18, 0x01, 0x20, 0x01, 0x28, 0x05, 0x52,
+	0x06, 0x6e, 0x75, 0x6d, 0x62, 0x65, 0x72, 0x22, 0x25, 0x0a, 0x0b, 0x4d, 0x61, 0x78, 0x52, 0x65,
+	0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x12, 0x16, 0x0a, 0x06, 0x72, 0x65, 0x73, 0x75, 0x6c, 0x74,
+	0x18, 0x01, 0x20, 0x01, 0x28, 0x05, 0x52, 0x06, 0x72, 0x65, 0x73, 0x75, 0x6c, 0x74, 0x32, 0x83,
+	0x02, 0x0a, 0x11, 0x43, 0x61, 0x6c, 0x63, 0x75, 0x6c, 0x61, 0x74, 0x6f, 0x72, 0x53, 0x65, 0x72,
+	0x76, 0x69, 0x63, 0x65, 0x12, 0x36, 0x0a, 0x03, 0x41, 0x64, 0x64, 0x12, 0x16, 0x2e, 0x63, 0x61,
+	0x6c, 0x63, 0x75, 0x6c, 0x61, 0x74, 0x6f, 0x72, 0x2e, 0x41, 0x64, 0x64, 0x52, 0x65, 0x71, 0x75,
+	0x65, 0x73, 0x74, 0x1a, 0x17, 0x2e, 0x63, 0x61, 0x6c, 0x63, 0x75, 0x6c, 0x61, 0x74, 0x6f, 0x72,
+	0x2e, 0x41, 0x64, 0x64, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x12, 0x40, 0x0a, 0x06,
+	0x50, 0x72, 0x69, 0x6d, 0x65, 0x73, 0x12, 0x19, 0x2e, 0x63, 0x61, 0x6c, 0x63, 0x75, 0x6c, 0x61,
+	0x74, 0x6f, 0x72, 0x2e, 0x50, 0x72, 0x69, 0x6d, 0x65, 0x73, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73,
+	0x74, 0x1a, 0x19, 0x2e, 0x63, 0x61, 0x6c, 0x63, 0x75, 0x6c, 0x61, 0x74, 0x6f, 0x72, 0x2e, 0x50,
+	0x72, 0x69, 0x6d, 0x65, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x30, 0x01, 0x12, 0x38,
+	0x0a, 0x03, 0x41, 0x76, 0x67, 0x12, 0x16, 0x2e, 0x63, 0x61, 0x6c, 0x63, 0x75, 0x6c, 0x61, 0x74,
+	0x6f, 0x72, 0x2e, 0x41, 0x76, 0x67, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x1a, 0x17, 0x2e,
+	0x63, 0x61, 0x6c, 0x63, 0x75, 0x6c, 0x61, 0x74, 0x6f, 0x72, 0x2e, 0x41, 0x76, 0x67, 0x52, 0x65,
+	0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x28, 0x01, 0x12, 0x3a, 0x0a, 0x03, 0x4d, 0x61, 0x78, 0x12,
+	0x16, 0x2e, 0x63, 0x61, 0x6c, 0x63, 0x75, 0x6c, 0x61, 0x74, 0x6f, 0x72, 0x2e, 0x4d, 0x61, 0x78,
+	0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x1a, 0x17, 0x2e, 0x63, 0x61, 0x6c, 0x63, 0x75, 0x6c,
+	0x61, 0x74, 0x6f, 0x72, 0x2e, 0x4d, 0x61, 0x78, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65,
+	0x28, 0x01, 0x30, 0x01, 0x42, 0x10, 0x5a, 0x0e, 0x2e, 0x2f, 0x63, 0x61, 0x6c, 0x63, 0x75, 0x6c,
+	0x61, 0x74, 0x6f, 0x72, 0x70, 0x62, 0x62, 0x06, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x33,
 }
 
 var (
@@ -155,18 +464,28 @@ func file_calculatorpb_calculator_proto_rawDescGZIP() []byte {
 	return file_calculatorpb_calculator_proto_rawDescData
 }
 
-var file_calculatorpb_calculator_proto_msgTypes = make([]protoimpl.MessageInfo, 2)
+var file_calculatorpb_calculator_proto_msgTypes = make([]protoimpl.MessageInfo, 8)
 var file_calculatorpb_calculator_proto_goTypes = []interface{}{
-	(*Params)(nil), // 0: calculator.Params
-	(*Result)(nil), // 1: calculator.Result
+	(*AddRequest)(nil),    // 0: calculator.AddRequest
+	(*AddResponse)(nil),   // 1: calculator.AddResponse
+	(*PrimesRequest)(nil), // 2: calculator.PrimesRequest
+	(*PrimeResponse)(nil), // 3: calculator.PrimeResponse
+	(*AvgRequest)(nil),    // 4: calculator.AvgRequest
+	(*AvgResponse)(nil),   // 5: calculator.AvgResponse
+	(*MaxRequest)(nil),    // 6: calculator.MaxRequest
+	(*MaxResponse)(nil),   // 7: calculator.MaxResponse
 }
 var file_calculatorpb_calculator_proto_depIdxs = []int32{
-	0, // 0: calculator.Calcularor.Add:input_type -> calculator.Params
-	0, // 1: calculator.Calcularor.Sub:input_type -> calculator.Params
-	1, // 2: calculator.Calcularor.Add:output_type -> calculator.Result
-	1, // 3: calculator.Calcularor.Sub:output_type -> calculator.Result
-	2, // [2:4] is the sub-list for method output_type
-	0, // [0:2] is the sub-list for method input_type
+	0, // 0: calculator.CalculatorService.Add:input_type -> calculator.AddRequest
+	2, // 1: calculator.CalculatorService.Primes:input_type -> calculator.PrimesRequest
+	4, // 2: calculator.CalculatorService.Avg:input_type -> calculator.AvgRequest
+	6, // 3: calculator.CalculatorService.Max:input_type -> calculator.MaxRequest
+	1, // 4: calculator.CalculatorService.Add:output_type -> calculator.AddResponse
+	3, // 5: calculator.CalculatorService.Primes:output_type -> calculator.PrimeResponse
+	5, // 6: calculator.CalculatorService.Avg:output_type -> calculator.AvgResponse
+	7, // 7: calculator.CalculatorService.Max:output_type -> calculator.MaxResponse
+	4, // [4:8] is the sub-list for method output_type
+	0, // [0:4] is the sub-list for method input_type
 	0, // [0:0] is the sub-list for extension type_name
 	0, // [0:0] is the sub-list for extension extendee
 	0, // [0:0] is the sub-list for field type_name
@@ -179,7 +498,7 @@ func file_calculatorpb_calculator_proto_init() {
 	}
 	if !protoimpl.UnsafeEnabled {
 		file_calculatorpb_calculator_proto_msgTypes[0].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*Params); i {
+			switch v := v.(*AddRequest); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -191,7 +510,79 @@ func file_calculatorpb_calculator_proto_init() {
 			}
 		}
 		file_calculatorpb_calculator_proto_msgTypes[1].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*Result); i {
+			switch v := v.(*AddResponse); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
+		file_calculatorpb_calculator_proto_msgTypes[2].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*PrimesRequest); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
+		file_calculatorpb_calculator_proto_msgTypes[3].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*PrimeResponse); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
+		file_calculatorpb_calculator_proto_msgTypes[4].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*AvgRequest); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
+		file_calculatorpb_calculator_proto_msgTypes[5].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*AvgResponse); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
+		file_calculatorpb_calculator_proto_msgTypes[6].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*MaxRequest); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
+		file_calculatorpb_calculator_proto_msgTypes[7].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*MaxResponse); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -209,7 +600,7 @@ func file_calculatorpb_calculator_proto_init() {
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
 			RawDescriptor: file_calculatorpb_calculator_proto_rawDesc,
 			NumEnums:      0,
-			NumMessages:   2,
+			NumMessages:   8,
 			NumExtensions: 0,
 			NumServices:   1,
 		},
