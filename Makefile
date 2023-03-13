@@ -1,5 +1,5 @@
 # most basic proto command without many options
-gen-proto:
+calc:
 	rm -rf ./calculatorpb/*.go
 	protoc --go_out=. --go-grpc_out=. ./calculatorpb/calculator.proto
 	go build -o ./server/server ./server/*.go

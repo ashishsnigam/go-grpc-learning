@@ -19,8 +19,7 @@ type calcServer struct {
 
 // Add this calcServer in grpc server
 func main() {
-	fmt.Println("calculator service server code starts..")
-
+	fmt.Println("calculator service server code starts at port 7002")
 	lis, err := net.Listen("tcp", "localhost:7002")
 	if err != nil {
 		log.Fatalf("failed to listen calcServer with error %v", err)

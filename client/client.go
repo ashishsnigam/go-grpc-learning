@@ -19,8 +19,8 @@ func main() {
 	defer cc.Close()
 
 	c := calculatorpb.NewCalculatorServiceClient(cc)
-	//doUnary(c)
+	doAdd(c, -1, 10)
 	//doPrimes(c)
 	//doAvg(c)
-	doMax(c)
+	//doMax(c)
 }
